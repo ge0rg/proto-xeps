@@ -86,6 +86,28 @@
       request eventually made by Juliet's client. Romeo's client can then
       compare the token received in a subscription request to the list of
       issued tokens, and automatically approve the subscription.</p>
+  <code caption='Successful PARS Protocol Flow'><![CDATA[
+Romeo          mongatague.net  capulet.net     Juliet
+   |              |               |               |
+   | Send out-of-band invitation link             |
+   | (xmpp:romeo@montague.net?preauth=token)      |
+   |- - - - - - - - - - - - - - - - - - - - - - ->|
+   |              |               |    roster add |
+   |              |               |<--------------|
+   |       presence subscription request w/ token |
+   |  <presence><preauth token="..."/></presence> |
+   |<---------------------------------------------|
+   | (token validation check)     |               |
+   | presence subscribed          |               |
+   |--------------------------------------------->|
+   | roster add   |               |               |
+   |------------->|               |               |
+   | presence subscription request|               |
+   |--------------------------------------------->|
+   |              |               (auto approval) |
+   |              |           presence subscribed |
+   |<---------------------------------------------|
+]]></code>
   </section2>
   <section2 topic='Generation of Invitation Link' anchor='link_generation'>
     <p>Whenever Romeo wishes to invite somebody to his roster, his client will
