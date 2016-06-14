@@ -35,8 +35,8 @@
     <jid>georg@yax.im</jid>
   </author>
   <revision>
-    <version>0.0.1</version>
-    <date>2016-06-10</date>
+    <version>0.0.2</version>
+    <date>2016-06-14</date>
     <initials>gl</initials>
     <remark><p>First draft.</p></remark>
   </revision>
@@ -112,7 +112,7 @@ Romeo          mongatague.net  capulet.net     Juliet
   <section2 topic='Generation of Invitation Link' anchor='link_generation'>
     <p>Whenever Romeo wishes to invite somebody to his roster, his client will
       generate an invitation link that contains a new authentication token.
-      This document extends the "roster" URI action defined in <cite>XEP-0147</cite>; with
+      This document extends the "roster" URI action defined in <cite>XEP-0147</cite> with
       a new key-value parameter named "preauth" to store the generated token.
       Romeo's client will create an xmpp: link containing Romeo's JID, the
       "roster" action, the "preauth" parameter with the token value, and
@@ -164,18 +164,14 @@ xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague]]>
 	Furthermore, the server operator needs to maintain the list of
 	recommended clients.</li>
     </ol>
-    <example caption='Developer-Hosted Landing Page Generated with Conversations'><![CDATA[
-https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
+    <example caption='Developer-Hosted Landing Page Generated with yaxim'><![CDATA[
+https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
     <p>A possible screen representation of the landing page would be:</p>
     <blockquote>
-      <strong><em>Romeo Montague</em> has invited you as an XMPP contact.</strong>
+      <p><strong><em>Romeo Montague</em> has invited you to chat</strong></p>
 
-      <p>XMPP is a provider-independent form of instant messaging. That means
-	you can pick from many different clients and have a free choice of
-	server operators to communicate with <em>Romeo Montague</em>.</p>
-
-      <strong><link url='xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague'>Add <em>Romeo Montague</em></link></strong>
-      <p>If you can not open the above link, you need to install and configure
+      <p><strong><link url='xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague'>Add <em>Romeo Montague</em></link></strong></p>
+      <p>If this link does not work, you need to install and configure
 	an XMPP client. Please visit this page again afterwards. Choose one of
 	these for your <em>Tomato OS</em>:</p>
       <ul>
@@ -184,6 +180,10 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
       </ul>
       <p>Check the <link url='http://xmpp.org/software/clients.html'>full list of XMPP clients</link>.</p>
       <p>No further action is required if you do not know <em>Romeo Montague</em> or do not want to chat with them.</p>
+      <p>XMPP is a provider-independent form of instant messaging. That means
+	you can pick from many different clients and have a free choice of
+	server operators to communicate with <em>Romeo Montague</em>.</p>
+
     </blockquote>
 
     <p><em>(is this paragraph relevant?)</em> Some mobile device platforms allow an app to register itself
@@ -196,11 +196,11 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
   <section2 topic='Subcription request to the user by the link receiver (new contact)' anchor='link_transmission'>
     <p>When Juliet opens the xmpp: URI (or the according client-supported
       landing page URI) in her client, the client should perform the usual
-      roster addition action, i.e. display a dialog to the link receiver,
-      allowing to edit the entry or to cancel the process. If Juliet completes
-      the roster addition, the client SHOULD also send a subscription request
-      to Romeo. This request SHOULD contain a 'preauth' element containing the
-      authentication token from the invitation link.
+      roster addition action, i.e. display a dialog allowing to edit the entry
+      or to cancel the process. If Juliet completes the roster addition, the
+      client SHOULD also send a subscription request to Romeo. This request
+      SHOULD contain a 'preauth' element containing the authentication token
+      from the invitation link.
     </p>
     <example caption='Subscription Request with Pre-Authenticated Roster Subscription Element'><![CDATA[
 <presence to='romeo@montague.net' type='subscribe'>
@@ -213,8 +213,8 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
     <example caption='Juliet Pre-approves Romeo'><![CDATA[
 <presence to='romeo@montague.net' type='subscribed' />]]></example>
     <p>If Juliet's server does not indicate pre-approval support, her client
-      SHOULD store Romeo's JID in an auto-approval whitelist, together with an
-      appropriate expiration time.
+      SHOULD store Romeo's JID in a local auto-approval whitelist, together
+      with an appropriate expiration time.
     </p>
   </section2>
 
@@ -249,13 +249,22 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
   </section2>
 </section1>
 <section1 topic='Business Rules' anchor='rules'>
-  <p>Multiple clients - only act automatically on known tokens - yaddayadda.</p>
-</section1>
-<section1 topic='Implementation Notes' anchor='impl'>
-  <p>Full backward compatibility / graceful downgrade.</p>
-</section1>
-<section1 topic='Accessibility Considerations' anchor='access'>
-  <p>OPTIONAL.</p>
+    <p>An implementation of this protocol MUST allow for a "graceful
+      degradation" to the manual subscription approval process. If a client
+      receives a malformed or unknown 'preauth' token, it MUST ignore it and act
+      as if no preauth token was contained.</p>
+
+    <p>When sending a pre-authenticated subscription request, the contact's
+      client MUST NOT expect an immediate successfull approval. If the user's
+      issuing client is currently offline, or if the token has expired, a manual
+      approval will be performed. Therefore, the contact's client should use the
+      same mechanism as before to indicate an unidirectional subscription.
+    </p>
+
+    <p>If a user is logged in with multiple clients, some of their clients will
+    receive a subscription request with an unknown token. In this case, a client
+    MAY delay the user notification for a short time, to allow another logged-in
+    client to automatically handle the subscription request.</p>
 </section1>
 <section1 topic='Security Considerations' anchor='security'>
   <section2 topic='Token Generation' anchor='security_token'>
@@ -282,11 +291,11 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
       <li><strong>Usage:</strong> in the typical scenario, each token may only
 	be used once. While it is possible for a client to generate a token for
 	multiple uses (like for embedding it in a contact card), the
-	conventional manual roster management should be used in public
-	invitations.</li>
+	conventional manual roster management should be used for public
+	invitation links.</li>
       <li><strong>Time:</strong> each token MUST have a limited validity time.
 	As the token is transmitted out-of-band, it should provide sufficient
-	reaction time, e.g. one week. The time limit also allows the issuer to
+	reaction time, e.g. one week. This time limit also allows the issuer to
 	delete expired tokens.</li>
       <li><strong>Identity:</strong> if the JID of the token receiver is known
 	in advance, the token sender MUST NOT allow a different JID to redeem
@@ -314,10 +323,22 @@ https://conversations.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]>
   </section2>
 </section1>
 <section1 topic='IANA Considerations' anchor='iana'>
-  <p>REQUIRED.</p>
+  <p>This document requires no interaction with &IANA;.</p>
 </section1>
 <section1 topic='XMPP Registrar Considerations' anchor='registrar'>
-  <p>REQUIRED.</p>
+  <p>Include the "urn:xmpp:pars:0" namespace in the registry of protocol
+    namespaces. Include "preauth" as an additional key-value parameter to the
+    roster query action.</p>
+      <code caption='New Roster Query Action Parameter'><![CDATA[
+<querytype>
+  <name>roster</name>
+    ...
+    <key>
+      <name>preauth</name>
+      <desc>the token used to obtain an automatic approval from the target JID</desc>
+    </key>
+</querytype>
+]]></code>
 </section1>
 <section1 topic='XML Schema' anchor='schema'>
   <p>REQUIRED for protocol specifications.</p>
