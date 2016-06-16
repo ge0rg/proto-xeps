@@ -167,7 +167,7 @@ xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague]]>
     <example caption='Developer-Hosted Landing Page Generated with yaxim'><![CDATA[
 https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
     <p>A possible screen representation of the landing page would be:</p>
-    <blockquote>
+    <div class="example">
       <p><strong><em>Romeo Montague</em> has invited you to chat</strong></p>
 
       <p><strong><link url='xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague'>Add <em>Romeo Montague</em></link></strong></p>
@@ -184,7 +184,7 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
 	you can pick from many different clients and have a free choice of
 	server operators to communicate with <em>Romeo Montague</em>.</p>
 
-    </blockquote>
+    </div>
 
     <p><em>(is this paragraph relevant?)</em> Some mobile device platforms allow an app to register itself
       as a handler for cetain URIs. This allows the Conversations client to
