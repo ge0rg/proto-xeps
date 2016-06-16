@@ -253,7 +253,7 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
 
   <section2 topic='No expectaion of immediate approval' anchor='rules_expectation'>
     <p>When sending a pre-authenticated subscription request, the contact's
-      client MUST NOT expect an immediate successfull approval. If the user's
+      client MUST NOT expect an immediate successful approval. If the user's
       issuing client is currently offline, or if the token has expired, a manual
       approval will be performed. Therefore, the contact's client should use the
       same mechanism as before to indicate an unidirectional subscription.
