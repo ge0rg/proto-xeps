@@ -324,6 +324,15 @@ such a case, the issuer must ensure a comparable security level
       and provide an easy mechanism to remove them and cancel their
       subscription.</p>
   </section2>
+  <section2 topic='Display Names' anchor='security_token'>
+    <p>An attacker can lure the user by providing an invitation link with a
+      'name' parameter that does not match the JID. Therefore, a client SHOULD
+      always display both the JID and the proposed display name when adding a
+      roster item.</p>
+    <p>When the user's client automatically approves a subscription, it SHOULD
+      add the new contact to the roster without a 'name' or with the 'name'
+      equal to the JID, to prevent impersonation attacks.</p>
+  </section2>
 </section1>
 <section1 topic='IANA Considerations' anchor='iana'>
   <p>This document requires no interaction with &IANA;.</p>
