@@ -186,11 +186,6 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
 
     </div>
 
-    <p><em>(is this paragraph relevant?)</em> Some mobile device platforms allow an app to register itself
-      as a handler for cetain URIs. This allows the Conversations client to
-      register for https://conversations.im/i/ and to handle such invitation
-      links directly. Such an approach would not be as easy with landing pages
-      hosted on different servers.</p>
   </section2>
 
   <section2 topic='Subcription request to the user by the link receiver (new contact)' anchor='link_transmission'>
@@ -249,22 +244,41 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
   </section2>
 </section1>
 <section1 topic='Business Rules' anchor='rules'>
+  <section2 topic='Fallback to manual process' anchor='rules_fallback'>
     <p>An implementation of this protocol MUST allow for a "graceful
       degradation" to the manual subscription approval process. If a client
       receives a malformed or unknown 'preauth' token, it MUST ignore it and act
       as if no preauth token was contained.</p>
+  </section2>
 
+  <section2 topic='No expectaion of immediate approval' anchor='rules_expectation'>
     <p>When sending a pre-authenticated subscription request, the contact's
       client MUST NOT expect an immediate successfull approval. If the user's
       issuing client is currently offline, or if the token has expired, a manual
       approval will be performed. Therefore, the contact's client should use the
       same mechanism as before to indicate an unidirectional subscription.
     </p>
+  </section2>
 
+  <section2 topic='Use of multiple clients' anchor='rules_multiclient'>
     <p>If a user is logged in with multiple clients, some of their clients will
     receive a subscription request with an unknown token. In this case, a client
     MAY delay the user notification for a short time, to allow another logged-in
     client to automatically handle the subscription request.</p>
+  </section2>
+
+  <section2 topic='Opening the landing page in an app' anchor='rules_multiclient'>
+    <p>Some mobile device platforms allow an app to register itself as a
+      handler for cetain URIs. This allows an XMPP client to register for <strong>xmpp:</strong>
+      URIs, but also to redirect handling of cetain HTTP/HTTPS URIs. A mobile
+      client SHOULD register for the associated landing page URIs and properly
+      handle the contained invitations. For example, the yaxim client should
+      register a handler for <strong>https://yax.im/i/*</strong>, and present
+      the "Add to roster" dialog if such a link is opened. A client MAY register
+      for the landing page URIs of other providers after obtaining the
+      operators' approval.
+      </p>
+  </section2>
 </section1>
 <section1 topic='Security Considerations' anchor='security'>
   <section2 topic='Token Generation' anchor='security_token'>
