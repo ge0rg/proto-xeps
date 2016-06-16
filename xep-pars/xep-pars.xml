@@ -114,7 +114,7 @@ Romeo          mongatague.net  capulet.net     Juliet
       generate an invitation link that contains a new authentication token.
       This document extends the "roster" URI action defined in <cite>XEP-0147</cite> with
       a new key-value parameter named "preauth" to store the generated token.
-      Romeo's client will create an xmpp: link containing Romeo's JID, the
+      Romeo's client will create an <strong>xmpp:</strong> link containing Romeo's JID, the
       "roster" action, the "preauth" parameter with the token value, and
       optionally a "name" parameter with the suggested display name.
     </p>
@@ -137,12 +137,12 @@ xmpp:romeo@montague.net?roster;preauth=1tMFqYDdKhfe2pwp;name=Romeo%20Montague]]>
   </section2>
 
   <section2 topic='Out-of-band transmission and presentation of the link' anchor='link_transmission'>
-    <p>As Romeo doesn't know Juliet's JID in advance, he needs to use an out-of-band method (like e-mail, QR codes or NFC) to transmit the invitation link to Juliet. While these methods allow transmission of xmpp: URIs, there is no mechanism to ensure that Juliet actually has a client installed that can open the URI.</p>
+    <p>As Romeo doesn't know Juliet's JID in advance, he needs to use an out-of-band method (like e-mail, QR codes or NFC) to transmit the invitation link to Juliet. While these methods allow transmission of <strong>xmpp:</strong> URIs, there is no mechanism to ensure that Juliet actually has a client installed that can open the URI.</p>
     <p>One way to solve this problem is to present Juliet with a web-based landing page that contains the following elements:</p>
     <ul>
       <li>A short text that this is an XMPP invitation from Romeo.</li>
       <li>A client recommendation (based on the detected web browser) with download links.</li>
-      <li>A prominent button that activates the actual xmpp: link.</li>
+      <li>A prominent button that activates the actual <strong>xmpp:</strong> link.</li>
     </ul>
     <p>There are multiple options where such a landing page could be hosted:</p>
     <ol>
@@ -194,7 +194,7 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
   </section2>
 
   <section2 topic='Subcription request to the user by the link receiver (new contact)' anchor='link_transmission'>
-    <p>When Juliet opens the xmpp: URI (or the according client-supported
+    <p>When Juliet opens the <strong>xmpp:</strong> URI (or the according client-supported
       landing page URI) in her client, the client should perform the usual
       roster addition action, i.e. display a dialog allowing to edit the entry
       or to cancel the process. If Juliet completes the roster addition, the
