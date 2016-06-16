@@ -280,9 +280,12 @@ https://yax.im/i/romeo/montague.net/1tMFqYDdKhfe2pwp/Romeo+Montague]]></example>
     provide sufficient entropy to make brute-force attacks
     infeasible. It is suggested to generate at least 80 bits of
     entropy, and to use an encoding that can be easily encoded as part
-    of an URI (e.g. Base-32).</p>
-    <p>It is possible to use a different token generation scheme like SAML or
-      JWT. In such a case, the issuer must ensure a comparable security level
+    of an URI (e.g. Base-32).</p> <p>It is possible to use a different token
+    generation scheme like <cite>SAML</cite><note>Security Assertion Markup
+    Language (SAML) &lt;<link url='https://www.oasis-open.org/standards#samlv2.0'>https://www.oasis-open.org/standards#samlv2.0</link>&gt;</note>
+    or JWT (<cite><link url='http://tools.ietf.org/html/rfc7519'>RFC
+	    7519</link></cite><note>RFC 7519: JSON Web Token (JWT) &lt;<link url='http://tools.ietf.org/html/rfc7519'>http://tools.ietf.org/html/rfc7519</link>&gt;</note>). In
+such a case, the issuer must ensure a comparable security level
       and limit token reuse.</p>
   </section2>
   <section2 topic='Checking Token Validity' anchor='security_validity'>
